@@ -49,4 +49,11 @@ public class PlaylistApiApplication {
         return new ResponseEntity<>(song, HttpStatus.OK);
     }
 
+    @DeleteMapping("/songs/{id}")
+    public ResponseEntity<Song> deleteSong(@PathVariable Long id) {
+        songRepository.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
