@@ -15,7 +15,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy="address")
     private Destination destination;
 
     private String street;

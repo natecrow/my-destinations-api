@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -22,7 +23,8 @@ public class Destination {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(cascade=CascadeType.ALL, mappedBy="destination")
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="address_id", nullable=false)
     @Valid
     private Address address;
     
