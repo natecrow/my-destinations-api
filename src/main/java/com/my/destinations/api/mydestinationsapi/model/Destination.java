@@ -1,7 +1,8 @@
 package com.my.destinations.api.mydestinationsapi.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -36,8 +37,8 @@ public class Destination {
     @DecimalMin("00.00")
     private BigDecimal cost;
 
-    private Date dateTimeToVisit;
-
+    private LocalDate dateToVisit;
+    private LocalTime timeToVisit;
     private String linkToWebsite;
     private String phoneNumber;
     private String notes;
@@ -45,12 +46,12 @@ public class Destination {
     public Destination() {
     }
 
-    public Destination(Address address, String name, BigDecimal cost, Date dateTimeToVisit, String linkToWebsite,
+    public Destination(Address address, String name, BigDecimal cost, LocalDate dateToVisit, String linkToWebsite,
             String phoneNumber, String notes) {
         this.address = address;
         this.name = name;
         this.cost = cost;
-        this.dateTimeToVisit = dateTimeToVisit;
+        this.dateToVisit = dateToVisit;
         this.linkToWebsite = linkToWebsite;
         this.phoneNumber = phoneNumber;
         this.notes = notes;
@@ -88,12 +89,20 @@ public class Destination {
         this.cost = cost;
     }
 
-    public Date getDateTimeToVisit() {
-        return this.dateTimeToVisit;
+    public LocalDate getDateToVisit() {
+        return this.dateToVisit;
     }
 
-    public void setDateTimeToVisit(Date dateTimeToVisit) {
-        this.dateTimeToVisit = dateTimeToVisit;
+    public void setDateToVisit(LocalDate dateToVisit) {
+        this.dateToVisit = dateToVisit;
+    }
+
+    public LocalTime getTimeToVisit() {
+        return this.timeToVisit;
+    }
+
+    public void setTimeToVisit(LocalTime timeToVisit) {
+        this.timeToVisit = timeToVisit;
     }
 
     public String getLinkToWebsite() {
@@ -122,9 +131,9 @@ public class Destination {
 
     @Override
     public String toString() {
-        return "Destination{" + "id=" + id + ", name='" + name + '\'' + ", cost='" + cost + '\'' + ", dateTimeToVisit='"
-                + dateTimeToVisit + '\'' + ", linkToWebsite='" + linkToWebsite + '\'' + ", phoneNumber='" + phoneNumber
-                + '\'' + ", notes='" + notes + '\'' + '}';
+        return "Destination{" + "id=" + id + ", name='" + name + '\'' + ", cost='" + cost + '\'' + ", dateToVisit='"
+                + dateToVisit + '\'' + ", timeToVisit='" + timeToVisit + '\'' + ", linkToWebsite='" + linkToWebsite
+                + '\'' + ", phoneNumber='" + phoneNumber + '\'' + ", notes='" + notes + '\'' + '}';
     }
 
     @Override
@@ -141,7 +150,8 @@ public class Destination {
         Destination otherDestination = (Destination) other;
         if (otherDestination.getId() == this.id && otherDestination.getName().equals(this.name)
                 && otherDestination.getCost().equals(this.cost)
-                && otherDestination.getDateTimeToVisit().equals(this.dateTimeToVisit)
+                && otherDestination.getDateToVisit().equals(this.dateToVisit)
+                && otherDestination.getTimeToVisit().equals(this.timeToVisit)
                 && otherDestination.getLinkToWebsite().equals(this.linkToWebsite)
                 && otherDestination.getPhoneNumber().equals(this.phoneNumber)
                 && otherDestination.getNotes().equals(this.notes)) {
