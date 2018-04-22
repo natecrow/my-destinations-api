@@ -26,7 +26,7 @@ public class Destination {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", nullable = false)
+    @JoinColumn(name = "address_id")
     @Valid
     private Address address;
 
