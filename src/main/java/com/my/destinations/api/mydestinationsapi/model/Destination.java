@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.NumberFormat;
@@ -23,19 +24,20 @@ public class Destination {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="address_id", nullable=false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", nullable = false)
     @Valid
     private Address address;
-    
+
     @NotEmpty
     private String name;
 
-    @NumberFormat(style=Style.CURRENCY)
+    @NumberFormat(style = Style.CURRENCY)
+    @DecimalMin("00.00")
     private BigDecimal cost;
-    
+
     private Date dateTimeToVisit;
-    
+
     private String linkToWebsite;
     private String phoneNumber;
     private String notes;
@@ -43,7 +45,8 @@ public class Destination {
     public Destination() {
     }
 
-    public Destination(Address address, String name, BigDecimal cost, Date dateTimeToVisit, String linkToWebsite, String phoneNumber, String notes) {
+    public Destination(Address address, String name, BigDecimal cost, Date dateTimeToVisit, String linkToWebsite,
+            String phoneNumber, String notes) {
         this.address = address;
         this.name = name;
         this.cost = cost;
@@ -119,15 +122,9 @@ public class Destination {
 
     @Override
     public String toString() {
-        return "Destination{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", cost='" + cost + '\'' +
-                ", dateTimeToVisit='" + dateTimeToVisit + '\'' +
-                ", linkToWebsite='" + linkToWebsite + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", notes='" + notes + '\'' +
-                '}';
+        return "Destination{" + "id=" + id + ", name='" + name + '\'' + ", cost='" + cost + '\'' + ", dateTimeToVisit='"
+                + dateTimeToVisit + '\'' + ", linkToWebsite='" + linkToWebsite + '\'' + ", phoneNumber='" + phoneNumber
+                + '\'' + ", notes='" + notes + '\'' + '}';
     }
 
     @Override
@@ -142,15 +139,14 @@ public class Destination {
         }
 
         Destination otherDestination = (Destination) other;
-        if (otherDestination.getId() == this.id &&
-            otherDestination.getName().equals(this.name) &&
-            otherDestination.getCost().equals(this.cost) &&
-            otherDestination.getDateTimeToVisit().equals(this.dateTimeToVisit) &&
-            otherDestination.getLinkToWebsite().equals(this.linkToWebsite) &&
-            otherDestination.getPhoneNumber().equals(this.phoneNumber) &&
-            otherDestination.getNotes().equals(this.notes)) {
-                return true;
-            }
+        if (otherDestination.getId() == this.id && otherDestination.getName().equals(this.name)
+                && otherDestination.getCost().equals(this.cost)
+                && otherDestination.getDateTimeToVisit().equals(this.dateTimeToVisit)
+                && otherDestination.getLinkToWebsite().equals(this.linkToWebsite)
+                && otherDestination.getPhoneNumber().equals(this.phoneNumber)
+                && otherDestination.getNotes().equals(this.notes)) {
+            return true;
+        }
         return false;
     }
 }

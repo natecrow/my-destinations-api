@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -21,7 +20,6 @@ public class Address {
     private String street;
     private String city;
 
-    @NotNull
     @Size(min=2, max=2)
     private String state;
     
