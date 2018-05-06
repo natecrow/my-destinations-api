@@ -8,7 +8,7 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @Configuration
-public class RestValidationConfiguration extends RepositoryRestConfigurerAdapter{
+public class RestValidationConfiguration extends RepositoryRestConfigurerAdapter {
 
     /**
      * Validator to validate beans.
