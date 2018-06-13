@@ -3,13 +3,18 @@ package com.my.destinations.api.mydestinationsapi.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
@@ -43,11 +48,28 @@ public class Destination {
     private String phoneNumber;
     private String notes;
 
+    @ManyToMany(targetEntity = DestinationsList.class,
+                cascade = { CascadeType.DETACH, CascadeType.MERGE,
+                            CascadeType.PERSIST, CascadeType.REFRESH }
+    )
+    @JoinTable(
+        name = "DESTINATIONS_LIST_X_DESTINATIONS",
+        joinColumns = @JoinColumn(name = "DESTINATION_ID",
+                nullable = false,
+                updatable = false),
+        inverseJoinColumns = @JoinColumn(name = "DESTINATIONS_LIST_ID",
+                nullable = false,
+                updatable = false),
+        foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+        inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+    )
+    private List<DestinationsList> destinationsLists;
+
     public Destination() {
     }
 
-    public Destination(Address address, String name, BigDecimal cost, LocalDate dateToVisit, String linkToWebsite,
-            String phoneNumber, String notes) {
+    public Destination(final Address address, final String name, final BigDecimal cost, final LocalDate dateToVisit,
+            final String linkToWebsite, final String phoneNumber, final String notes) {
         this.address = address;
         this.name = name;
         this.cost = cost;
@@ -127,6 +149,14 @@ public class Destination {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public List<DestinationsList> getDestinationsLists() {
+        return this.destinationsLists;
+    }
+
+    public void setDestinationsLists(List<DestinationsList> destinationsLists) {
+        this.destinationsLists = destinationsLists;
     }
 
     @Override
